@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block app %}
+<br>
+<div class="row">
+    <div class="col-md-4 order-md-2 mb-4">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">Votre commande</span>
+        <span class="badge badge-secondary badge-pill">3</span>
+      </h4>
+      <ul class="list-group mb-3">
+        {% for item in items %}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+                <h6 class="my-0">{{item.product_details.name}}</h6>
+                <small class="text-muted">x{{item.order_details.amount}} | Taille: {{item.order_details.size}} | Couleur: {{item.order_details.color}}</small>
+            </div>
+            <span class="text-muted">{{item.order_details.amount * item.product_details.price}} D.T</span>
+            </li>
+        {% endfor %}
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total (D.T)</span>
+          <strong>{{total}}</strong>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-8 order-md-1">
+      <h4 class="mb-3">DÉTAILS DE LA FACTURATION</h4>
+      <form method='post' class="" style="padding: 25px">
+        {{ form.csrf_token }}
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName">Prénom</label>
+            {{form.first_name(class="form-control", id="firstName")}}
+            {% if form.first_name.errors %}
+              {% for error in form.first_name.errors %}
+                <div class='error'>{{error}}</div>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="lastName">Nom</label>
+            {{form.last_name(class="form-control", id="lastName")}}
+            {% if form.last_name.errors %}
+            {% for error in form.last_name.errors %}
+              <div class='error'>{{error}}</div>
+            {% endfor %}
+          {% endif %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName">Cité</label>
+            {{form.city(class="form-control", id="city")}}
+            {% if form.city.errors %}
+            {% for error in form.city.errors %}
+              <div class='error'>{{error}}</div>
+            {% endfor %}
+            {% endif %}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="lastName">Address</label>
+            {{form.address(class="form-control", id="address")}}
+            {% if form.address.errors %}
+            {% for error in form.address.errors %}
+              <div class='error'>{{error}}</div>
+            {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName">Numero de téléphone</label>
+            {{form.phone(class="form-control", id="phone")}}
+            {% if form.phone.errors %}
+            {% for error in form.phone.errors %}
+              <div class='error'>{{error}}</div>
+            {% endfor %}
+            {% endif %}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="firstName">2éme Numero de téléphone</label>
+            {{form.phone2(class="form-control", id="phone2")}}
+            {% if form.phone2.errors %}
+            {% for error in form.phone2.errors %}
+              <div class='error'>{{error}}</div>
+            {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+        <br>
+        {{form.submit(class="btn btn-primary")}}
+      </form>
+    </div>
+</div>
+<br><br>
+{% endblock %}

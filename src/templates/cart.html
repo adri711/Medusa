@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+{% block app %}
+	<section id="cart_items">
+		<div class="container">
+
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Produit</td>
+							<td class="description"></td>
+							<td class="price">Prix</td>
+							<td class="test">Taille</td>
+							<td class="test">Couleur</td>
+							<td class="quantity">Quantité</td>
+							<td class="total">Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in items %}
+						<tr class="item_row" id="I{{item.order_details.id}}">
+							<td class="cart_product">
+								<a href=""><img src="{{ url_for('static', filename='images/' + item.product_details.product_image) }}" width=62 alt=""></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="">{{ item.product_details.name }}</a></h4>
+								<p>Product: #{{ item.product_details.id }}</p>
+							</td>
+							<td class="cart_price">
+								<p><span class="item_price">{{ item.product_details.price }}</span> D.T</p>
+							</td>
+							<td>
+								<select class="item_size form-control color" style="width: 70px">
+									{% for i in ['S', 'M', 'L', 'XL'] %}
+										{% if i == item.order_details.size %}
+											<option value="{{i}}" selected=selected>{{i}}</option>
+										{% else %}
+										<option value="{{i}}">{{i}}</option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</td>
+							<td>								
+								<select class="item_color form-control color" style="width: 100px">
+									{% for i in ['noir', 'bleu', 'rouge', 'vert','violet', 'rose', 'jaune', 'orange'] %}
+										{% if i == item.order_details.color %}
+											<option value="{{i}}" selected=selected>{{i}}</option>
+										{% else %}
+										<option value="{{i}}">{{i}}</option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_indec">+</a>
+									<input class="cart_quantity_input" style="" type="number" min="1" max="10" name="quantity" value="{{item.order_details.amount}}" autocomplete="off" size="2">
+									<a class="cart_quantity_indec">-</a>
+								</div>
+							</td>
+							<td class="cart_total">
+								<span class="cart_total_price">{{ item.product_details.price * item.order_details.amount}}</span> D.T
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" href=''>&times;</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
+
+	<section id="do_action">
+		<div class="container">
+			<div class="heading">
+				<h3>Votre commande est prête</h3>
+				<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="total_area">
+						<ul class="list-group">
+							<li class="list-group-item">Livraison <span>Gratuite</span></li>
+							<li class="list-group-item">Total <span id="final_price">{{total_price}}</span> D.T</li>
+						</ul> <br>
+						<a  class="btn btn-primary {{ 'disabled' if not items }}" href="{{ url_for('billing') }}">Check Out</a>
+						<a class="btn btn-primary" href="#" id="save_changes">Save changes only</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="{{ url_for('static', filename='scripts/cart.js') }}"></script>
+{% endblock %}
+<!--
+	<form action="/process_payment" method="GET" disabled>
+	<script
+			src="https://developers.flouci.com/static/main.js" class="flouci-button"
+			app="40196cd9-6a5a-4498-973b-088810638508"
+			data-amount="3500"
+			data-name="test product"
+			data-description="<PRODUCT_DESCRIPTION>"
+			data-image="<IMAGE_URL>"
+			data-id="<YOUR_TRACKING_ID>"
+			lang-key="fr"
+			data-server-url="https://data.flouci.com"
+			>
+	</script>
+</form>
+-->

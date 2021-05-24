@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block app %}
+<div class="container" >
+	<center>
+		<!--<form method="post">
+			<div class="login-form">
+				<h1>Connecter a votre compte</h1>
+				{{ form.csrf_token }}
+				{% with messages = get_flashed_messages() %}
+					{% if messages %}
+						{% for message in messages %}
+							{{ message }}
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
+				{{form.password()}}
+				{{form.submit()}}
+				<hr>
+				<p class="info">Don't have an account yet? You can register <a href="{{ url_for('signup') }}">here</a>.</p>
+			</div>
+		</form>-->
+		<form method='post'>
+			{{ form.csrf_token }}
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					{% for message in messages %}
+						{{ message }}
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+			<div class="form-group">
+				<label for="exampleInputEmail1">Email address</label>
+				{{form.email(class='form-control')}}
+				{% if form.email.errors %}
+					{% for error in form.email.errors %}
+						<div class='error'>{{error}}</div>
+					{% endfor %}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Password</label>
+				{{form.password(class='form-control')}}
+				{% if form.password.errors %}
+					{% for error in form.password.errors %}
+						<div class='error'>{{error}}</div>
+					{% endfor %}
+				{% endif %}
+			</div>
+			<br>
+			{{form.submit(class="btn btn-primary")}}
+		</form>
+	</center>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block app %}
+
+<section id="cart_items">
+    <div class="container">
+
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="">ID d'achat</td>
+                        <td>Etat</td>
+                        <td class="price">Argent payé</td>
+                        <td class="test">Date</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for purchase in purchases %}
+                    <tr class="item_row" id="I{{purchase.id}}">
+                        <td>
+                            {{purchase.id}}
+                        </td>
+                        <td>
+                            {{purchase.state}}
+                        </td>
+                        <td>
+                            {{purchase.cost}} D.T
+                        </td>
+                        <td>
+                            {{purchase.date}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section> <!--/#cart_items-->
+
+{% endblock %}

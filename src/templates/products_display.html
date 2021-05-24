@@ -1,0 +1,32 @@
+{% for product in products %}
+<div class="product_displayer col-12 col-sm-8 col-md-6 col-lg-4" data-productid="{{ product.design.id }}">
+    <div class="card">
+      <img class="card-img" src="{{ url_for('static', filename='images/') }}{{product.design.product_image}}" alt="Vans">
+      <div>
+        <a href="#" class="card-link text-danger like">
+          <i class="fas fa-heart"></i>
+        </a>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">{{ product.design.name }}</h4>
+        <h6 class="card-subtitle mb-2 text-muted">Designed by: <a href="{{ url_for('user', id=product.user.id) }}">{{ product.user.username }}</a></h6>
+        <div class="options d-flex flex-fill">
+            <select class="form-control color">
+            {% for i in ['noir', 'bleu', 'rouge', 'vert','violet', 'rose', 'jaune', 'orange'] %}
+                <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+          </select>
+          <select class="form-control size">
+            {% for i in ['S', 'M', 'L', 'XL'] %}
+              <option value="{{i}}">{{i}}</option>
+            {% endfor%}
+          </select>
+        </div>
+        <div class="buy d-flex justify-content-between align-items-center">
+          <div class="price text-success"><h5 class="mt-3">{{ product.design.price }} D.T</h5></div>
+          <a href="#" class="btn btn-danger mt-3 add-to-cart" style="padding: 5px; font-size:8px">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+</div>
+{% endfor %}

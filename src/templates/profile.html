@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block app %}
+<div id="container" class="container" data-user="{{ user_profile.userid }}" data-page="{{ page }}" data-pages="{{ pages_count }}">
+    <div class="container">
+        <div id="content" class="content p-0">
+            <div class="profile-header">
+                <div class="profile-header-cover bg-primary"></div>
+                <div class="profile-header-content">
+                    <div class="profile-header-img mb-4">
+                        <img src="{{ url_for('static', filename=user_profile.avatar) }}"  alt="" />
+                    </div>
+        
+                    <div class="profile-header-info">
+                        <h4 class="m-t-sm" style="color: white">{{user_profile.username}}</h4>
+                        {% if user_profile.biography %}
+                        <p class="m-b-sm">{{user_profile.biography}}</p>
+                        {% else %}
+                        <p class="m-b-sm">Cette utilisateur n'a pas de bio.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="profile-container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="tab-content p-0">
+                            <div class="tab-pane fade active show" id="">
+                                <div class="m-b-10"><b>User designs</b></div>
+                                <div id="items-container" class="row"></div>
+                                <div id="pagination" class="container pagination">
+                                    <a href="javascript:void(null);">&laquo;</a>
+                                    <span class="dynamic">
+                                        <a class="active" href="#">1</a>
+                                    </span>
+                                    <a href="javascript:void(null);">&raquo;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 hidden-xs hidden-sm">
+                        <ul class="profile-info-list">
+                            <li class="title">Information personel</li>
+                            <li>
+                                <div class="field">Prénom:</div>
+                                <div class="value">{{user_profile.firstname}}</div>
+                            </li>
+                            <li>
+                                <div class="field">Nom:</div>
+                                <div class="value">{{user_profile.lastname}}</div>
+                            </li>
+                            <li>
+                                <div class="field">Date d'enregistrement:</div>
+                                <div class="value">{{user_profile.date_registered}}</div>
+                            </li>
+                            <li>
+                                <div class="field">Niveau d'achat:</div>
+                                <div class="value">{{levels.buy}}</div>
+                            </li>
+                            <li>
+                                <div class="field">Niveau de vente:</div>
+                                <div class="value">{{levels.sell}}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+</div>
+</section>
+<script src="{{ url_for('static', filename='scripts/profile.js')}}"></script>
+{% endblock %}

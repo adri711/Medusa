@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block app %}
+<div style="margin-top: 32px;">
+    <h4 class="mb-3">Finaliser la commande</h4>
+    <p>Vous paierez {{total}} D.T Pour:</p> <br>
+    <ul class="list-group mb-3">
+        {% for item in items %}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+                <h6 class="my-0">{{item.product_details.name}}</h6>
+                <small class="text-muted">x{{item.order_details.amount}} | Taille: {{item.order_details.size}} | Couleur: {{item.order_details.color}}</small>
+            </div>
+            <span class="text-muted">{{item.order_details.amount * item.product_details.price}} D.T</span>
+            </li>
+        {% endfor %}
+    </ul>
+    <p>Pour que ces produits soit livré a cette Personne et Adresse:</p>
+    <dl class="row">
+        <dt class="col-sm-3">Nom et Prénom</dt>
+        <dd class="col-sm-9">{{user_info.last_name}} {{user_info.first_name}}.</dd>
+      
+        <dt class="col-sm-3 text-truncate">Addresse</dt>
+        <dd class="col-sm-9">{{user_info.city}}, {{user_info.address}}.</dd>
+        <dt class="col-sm-3 text-truncate">Téléphone</dt>
+        <dd class="col-sm-9">(+216) {{user_info.phone}}.</dd>
+        <dt class="col-sm-3 text-truncate">Téléphone 2</dt>
+        <dd class="col-sm-9">(+216) {{user_info.phone2}}.</dd>
+      </dl>
+</div>
+<form action="/payment" method="POST" disabled>
+	<script
+			src="https://developers.flouci.com/static/main.js" class="flouci-button"
+			app="40196cd9-6a5a-4498-973b-088810638508"
+			data-amount="{{ total * 1000 }}"
+            lang-key="fr"
+			>
+	</script>
+</form>
+<!--<form method="post" action="https://sandbox.paymee.tn/gateway/">
+    <input type="hidden" name="payment_token" value="5d41404b2a76b9719c592e6f84b68d92">
+    <input type="hidden" name="url_ok" value="https://example.com/ok.php">
+    <input type="hidden" name="url_ko" value="https://example.com/ko.php">
+    <button>Payer</button>
+</form>-->
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block app %}
+	<div id="container" class="" data-product="{{ product }}" data-page="{{ page }}" data-pages="{{ pages_count }}">
+		<div class="row" style="margin-top: 42px">
+			<div class="col-sm-2">
+
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item"><h5>Sort by</h5></li>
+				<li class="list-group-item">Latest</li>
+				<li class="list-group-item">Best sales</li>
+				<li class="list-group-item">Highest reviews</li>
+			</ul>
+			</div>
+			<div class="col-lg-9" style="margin-left:50px;">
+			<div class="row" id="items-container"> <!--Products goes here--> </div>
+			<div id="pagination" class="container pagination">
+				<a href="javascript:void(null);">&laquo;</a>
+				<span class="dynamic">
+					<a class="active" href="#">1</a>
+				</span>
+				<a href="javascript:void(null);">&raquo;</a>
+			</div>
+		</div>
+	</div>
+</section>
+</div>
+
+<script src="{{ url_for('static', filename='scripts/store.js') }}"></script>
+{% endblock %}
